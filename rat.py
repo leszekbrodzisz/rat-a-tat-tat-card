@@ -9,7 +9,7 @@ players = {
 }
 
 results = {
-  "player1": 0,
+  "player1": 1,
   "player2": 0,
   "player3": 0,
   "player4": 0,
