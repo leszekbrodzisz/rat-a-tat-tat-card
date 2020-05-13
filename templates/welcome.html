@@ -42,20 +42,17 @@
     <div class="alert alert-success" role="alert">
         <form method="post">
             {{ form.csrf_token }}
-             <p>
-                 tr1
-                 {{ form.meta.get_translations(form) }}
-                 tr2
-            </p>
-
-                    {{ form.how_many_players.label  }}
-                    {{ form.how_many_players  }}
+            {{ form.how_many_players.label  }}
+            {{ form.how_many_players  }}
             <ul>
                 {% for error in form.how_many_players.errors %}
                     <li style="color:red;"> aaa {{ error }} </li>
                 {% endfor  %}
             </ul>
             <button type="submit">Zaczynamy </button>
+            <p>
+    <!--             {{ form.meta.get_translations(form) }} -->
+            </p>
         </form>
     </div>
 
@@ -81,7 +78,7 @@
 -->
 
 <div class="jumbotron text-center" style="margin-bottom:0">
-  Copyrights (c) LBR
+  Copyrights 2020 (c) LBR
 </div>
 {% endblock %}
 {% block scripts %}
