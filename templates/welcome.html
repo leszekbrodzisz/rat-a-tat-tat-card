@@ -46,7 +46,11 @@
             {{ form.how_many_players  }}
             <ul>
                 {% for error in form.how_many_players.errors %}
-                    <li style="color:red;">  {{ error }} </li>
+                    {% if error == 'Not a valid integer value' %}
+                        <li style="color:red;">  Dozwolone są tylko liczby  </li>
+                      {% else %}
+                        <li style="color:red;">  {{ error }} </li>
+                    {% endif %}
                 {% endfor  %}
             </ul>
             <button type="submit">Zaczynamy </button>
