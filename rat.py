@@ -19,7 +19,7 @@ class UsersNumber(FlaskForm):
         #WTF_I18N_ENABLED ustawic na false???
 
         locales = ['es_ES', 'es']
-    how_many_players = IntegerField('Podaj liczbę graczy:', validators=[InputRequired(message='Podanie liczby graczy jest konmiczene')])
+    how_many_players = IntegerField('Podaj liczbę graczy i naciśnij przycisk pojniżej:', validators=[InputRequired(message='Podanie liczby graczy jest konmiczene')])
 
 
 
