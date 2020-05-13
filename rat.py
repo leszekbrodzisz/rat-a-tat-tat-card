@@ -2,6 +2,7 @@ from flask import (Flask, render_template, abort, jsonify, request, redirect, ur
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
 from wtforms.validators import InputRequired
+from wtforms.validators import NumberRange
 from flask_bootstrap import Bootstrap
 #from babel import Babel
 
@@ -19,8 +20,12 @@ class UsersNumber(FlaskForm):
         #WTF_I18N_ENABLED ustawic na false???
 
         locales = ['es_ES', 'es']
-    how_many_players = IntegerField('Podaj liczbę graczy i naciśnij przycisk:', validators=[InputRequired(message='Podanie liczby graczy jest konmiczene')])
-
+    #how_many_players = IntegerField('Podaj liczbę graczy i naciśnij przycisk:', validators=[InputRequired(message='Podanie liczby graczy jest konmiczene')])
+    how_many_players = IntegerField('Podaj liczbę graczy od 2 do 10 i naciśnij przycisk:',
+                                    validators=[ InputRequired(message='Podanie liczby graczy jest konmiczene')
+                                                ,NumberRange(min=2, max=10, message='Dozwolona liczba graczy od 2 do 10')
+                                                ]
+                                    )
 
 
 @app.route('/', methods=["GET", "POST"])
