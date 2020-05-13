@@ -2,10 +2,13 @@ from flask import (Flask, render_template, abort, jsonify, request, redirect, ur
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
 from wtforms.validators import InputRequired
+from flask_bootstrap import Bootstrap
 #from babel import Babel
 
 app = Flask(__name__)
 #babel = Babel(app)
+Bootstrap(app)
+
 app.config['SECRET_KEY'] = 'sekretny_klucz'
 
 
@@ -16,7 +19,7 @@ class UsersNumber(FlaskForm):
         #WTF_I18N_ENABLED ustawic na false???
 
         locales = ['es_ES', 'es']
-    how_many_players = IntegerField('lableka how_many_players', validators=[InputRequired(message='Podanie liczby graczy jest konmiczene')])
+    how_many_players = IntegerField('Podaj liczbę graczy:', validators=[InputRequired(message='Podanie liczby graczy jest konmiczene')])
 
 
 
