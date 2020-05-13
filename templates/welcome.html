@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <title>rat-a-tat-tat albo dutch - tu przeliczysz wyniki gry</title>
 </head>
 <body>
-    <h1> Tu przeliczysz wyniki gry  dutch zwanej też rat-a-tat-tat! </h1>
+    <h1> Tu przeliczysz wyniki gry  dutch zwanej też rat-a-tat-tat!!1 </h1>
     <p>
     <p>
 
@@ -13,22 +13,19 @@
 
     <H1>Podaj graczy </H1>
     <form method="post">
-        <p>
-            Gracz 1 nazwa <input type="text" name="form_p1_name">
+        {{ form.csrf_token }}
+         <p>
+             tr1
+             {{ form.meta.get_translations(form) }}
+             tr2
+             {{ form.how_many_players.label  }}
+             {{ form.how_many_players  }}
         </p>
-
-        <p>
-            Gracz 2 nazwa <input type="text" name="form_p2_name">
-        </p>
-
-        <p>
-            Gracz 3 nazwa <input type="text" name="form_p3_name">
-        </p>
-
-        <p>
-            Gracz 4 nazwa <input type="text" name="form_p4_name">
-        </p>
-
+        <ul>
+            {% for error in form.how_many_players.errors %}
+                <li style="color:red;"> aaa {{ error }} </li>
+            {% endfor  %}
+        </ul>
         <button type="submit">Rozpocznij przeliczanie wyników </button>
     </form>
 
