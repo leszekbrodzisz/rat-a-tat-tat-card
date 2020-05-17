@@ -1,0 +1,72 @@
+{% from "Jinja2_macros.html" import macro_nav %}
+{% from "Jinja2_macros.html" import macro_footer %}
+{% extends "bootstrap/base.html" %}
+
+{% block html_attribs %}
+    lang="pl"
+{% endblock %}
+
+
+{% block head %}
+    {{ super() }}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+{% endblock %}
+
+
+{% block title %}
+    Podaj nazwy graczy
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="jumbotron text-center" style="margin-bottom:0">
+        <h2> Podaj nazwy graczy? Mamy już tylu graczy:  {{ PlayerAddingCount}}  Wszystkich potrxebujemy:  {{ PlayersNumber }} </h2>
+    </div>
+
+    {{ macro_nav() }}
+
+    <div class="alert alert-success" role="alert">
+        Aktualna lista Graczy:
+        <p></p>
+        {% for key,value in PlayersResults.items() %}
+            <li>
+                    {{ key }}
+            </li>
+        {% endfor %}
+        <p></p>
+
+        <form method="post">
+
+            {{ form.csrf_token }}
+            {{ form.PL.label  }} <b>{{ PlayerAddingCount_and_1 }}</b>
+            {{ form.PL  }}
+
+            <ul>
+                {% for error in form.PL.errors %}
+                        <li style="color:red;">  {{ error }} </li>
+                {% endfor  %}
+            </ul>
+
+            <button type="submit">Wprowadź nazwę gracza {{ PlayerAddingCount_and_1 }} z {{ PlayersNumber }}</button>
+
+
+
+            </p>
+        </form>
+    </div>
+
+
+
+    {{ macro_footer() }}
+
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+{{super()}}
+{% endblock %}
