@@ -1,4 +1,4 @@
-from flask import (Flask, render_template, abort, jsonify, request, redirect, url_for)
+from flask import (Flask, render_template, abort, jsonify, request, redirect, url_for, session)
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
 from wtforms.validators import InputRequired
@@ -38,14 +38,20 @@ class Players(FlaskForm):
 
 @app.route('/', methods=["GET", "POST"])
 def welocome():
+    session.permanent = True
     form = UsersNumber()
+    if 'PlayersNumber' not in session:
+        session['PlayersNumber'] = 0
+    if 'PlayersResults' not in session:
+        session['PlayersResults'] = {}
     if form.validate_on_submit():
-        #PlayersResults.update({'GRACZ 3 ': 1})
+        session['PlayersNumber'] = form.how_many_players.data
         return redirect(url_for('add_players', PlayersNumber = form.how_many_players.data))
 
 
 
-    return render_template("welcome.html", form=form, PlayersResults=PlayersResults)
+    return render_template("welcome.html", form=form, PlayersResults=PlayersResults
+                           , TextToDisplay = 'sesja PLnr: ' + str(session['PlayersNumber']) + ' sesja PLres: ' + str(session['PlayersResults']) + ' all_user_agent: '+ str(request.user_agent) + ' browser:' + str(request.user_agent.browser) + ' ver:' + str(request.user_agent.version) + ' platform:' + str(request.user_agent.platform))
     #return render_template("welcome.html", form=form)
 @app.route('/tours_run', methods=["GET", "POST"])
 def tours_run():
