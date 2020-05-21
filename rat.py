@@ -15,7 +15,7 @@ app.config['SECRET_KEY'] = 'sekretny_klucz'
 # deklarujemy zmienne do programu zmienne
 TourCount = 1
 
-PlayersResults = {}
+#PlayersResults = {}
 #PlayersResults.update({'GRACZ 1 ': 0})
 #PlayersResults.update({'GRACZ 2 ': 0})
 
@@ -38,21 +38,21 @@ class Players(FlaskForm):
 
 @app.route('/', methods=["GET", "POST"])
 def welocome():
+    #session.clear()
     session.permanent = True
     form = UsersNumber()
     if 'PlayersNumber' not in session:
         session['PlayersNumber'] = 0
     if 'PlayersResults' not in session:
         session['PlayersResults'] = {}
+        #session['PlayersResults'].update({'GRACZ 1 ': 0})
     if form.validate_on_submit():
         session['PlayersNumber'] = form.how_many_players.data
-        return redirect(url_for('add_players', PlayersNumber = form.how_many_players.data))
+        return redirect(url_for('add_players'))
 
-
-
-    return render_template("welcome.html", form=form, PlayersResults=PlayersResults
+    return render_template("welcome.html", form=form, PlayersResults=session['PlayersResults']
                            , TextToDisplay = 'sesja PLnr: ' + str(session['PlayersNumber']) + ' sesja PLres: ' + str(session['PlayersResults']) + ' all_user_agent: '+ str(request.user_agent) + ' browser:' + str(request.user_agent.browser) + ' ver:' + str(request.user_agent.version) + ' platform:' + str(request.user_agent.platform))
-    #return render_template("welcome.html", form=form)
+
 @app.route('/tours_run', methods=["GET", "POST"])
 def tours_run():
     if request.method == "POST":
@@ -64,25 +64,25 @@ def tours_run():
     else:
         return render_template("tours_run.html")
 
-@app.route('/add_players/<int:PlayersNumber>', methods=["GET", "POST"])
-def add_players(PlayersNumber):
+@app.route('/add_players/', methods=["GET", "POST"])
+def add_players():
     form = Players()
     if form.validate_on_submit():
-        PlayersResults.update({form.PL.data: 0})
-        if len(PlayersResults) == PlayersNumber:
+        session['PlayersResults'].update({form.PL.data: 0})
+        if len(session['PlayersResults']) == session['PlayersNumber']:
             return 'skończylismy podawanię graczy'
         #return 'przycisk z podania nazw graczy ' + str(form.PL.data) + ' ww ' + str(PlayersResults) + ' mamy zawodnikow:' + str(len(PlayersResults))
         return render_template("players_names.html"
                                , form=form
-                               , PlayersNumber=PlayersNumber
-                               , PlayerAddingCount=len(PlayersResults)
-                               , PlayerAddingCount_and_1 =len(PlayersResults)+1
-                               , PlayersResults=PlayersResults
+                               , PlayersNumber=session['PlayersNumber']
+                               , PlayerAddingCount=len(session['PlayersResults'])
+                               , PlayerAddingCount_and_1 =len(session['PlayersResults'])+1
+                               , PlayersResults=session['PlayersResults']
                                )
     return render_template("players_names.html"
                            , form=form
-                           , PlayersNumber=PlayersNumber
-                           , PlayerAddingCount=len(PlayersResults)
-                           , PlayerAddingCount_and_1 =len(PlayersResults)+1
-                           , PlayersResults=PlayersResults
+                           , PlayersNumber=session['PlayersNumber']
+                           , PlayerAddingCount=len(session['PlayersResults'])
+                           , PlayerAddingCount_and_1 =len(session['PlayersResults'])+1
+                           , PlayersResults=session['PlayersResults']
                            )
