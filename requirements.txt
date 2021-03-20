@@ -7,7 +7,7 @@ Flask-Bootstrap==3.3.7.1
 Flask-WTF==0.14.3
 gunicorn==20.0.4
 itsdangerous==1.1.0
-Jinja2==2.11.2
+Jinja2==2.11.3
 MarkupSafe==1.1.1
 pytz==2020.1
 visitor==0.1.3
